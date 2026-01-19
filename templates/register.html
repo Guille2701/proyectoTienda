@@ -12,7 +12,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -21,10 +21,10 @@
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">Tech<span>Style</span>.</a>
+                <a href="{{ url_for('index') }}" class="logo">Tech<span>Style</span>.</a>
 
                 <div class="nav-links">
-                    <a href="index.html">Volver a la tienda</a>
+                    <a href="{{ url_for('login') }}">Volver al Login</a>
                 </div>
             </nav>
         </div>
@@ -45,15 +45,10 @@
             </div>
             {% endif %}
 
-            <form action="#" method="POST">
+            <form action="{{ url_for('register') }}" method="POST">
                 <div class="form-group">
-                    <label for="name" class="form-label">Nombre Completo</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="Juan Pérez" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="nombre@ejemplo.com"
+                    <label for="username" class="form-label">Nombre de Usuario</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="tu_usuario"
                         required>
                 </div>
 
@@ -63,17 +58,11 @@
                         required>
                 </div>
 
-                <div class="form-group">
-                    <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-input"
-                        placeholder="••••••••" required>
-                </div>
-
                 <button type="submit" class="auth-btn">Registrarse</button>
             </form>
 
             <div class="auth-footer">
-                <p>¿Ya tienes una cuenta? <a href="login.html">Inicia Sesión</a></p>
+                <p>¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia Sesión</a></p>
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -21,10 +21,10 @@
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">Tech<span>Style</span>.</a>
+                <a href="{{ url_for('index') }}" class="logo">Tech<span>Style</span>.</a>
 
                 <div class="nav-links">
-                    <a href="index.html">Ver Tienda</a>
+                    <a href="{{ url_for('index') }}">Ver Tienda</a>
                     <span style="color: var(--text-secondary);">|</span>
                     <a href="#" style="color: var(--primary); font-weight: 700;">Panel de Administración</a>
                 </div>

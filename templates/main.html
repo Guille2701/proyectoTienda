@@ -12,7 +12,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -24,6 +24,9 @@
                 <a href="/" class="logo">Tech<span>Style</span>.</a>
 
                 <div class="nav-links">
+                    {% if session.get('role') == 'admin' %}
+                    <a href="/product/add">Añadir Producto</a>
+                    {% endif %}
                     <a href="/">Inicio</a>
                     <a href="/">Novedades</a>
                     <a href="/">Hombre</a>
@@ -33,8 +36,15 @@
 
                 <div class="nav-icons">
                     <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <a href="/login"><i class="fa-regular fa-user"></i></a>
-                    <a href="/cart"><i class="fa-solid fa-bag-shopping"></i></a>
+
+                    {% if not session.get('user_id') %}
+                    <a href="/login" class="icon-btn"><i class="fa-regular fa-user"></i></a>
+                    {% else %}
+                    <p>{{ session.get('username') }}</p>
+                    <a href="/logout" class="icon-btn" title="Cerrar Sesión"><i class="fa-solid fa-xmark"></i></a>
+                    {% endif %}
+
+                    <a href="/cart" class="icon-btn"><i class="fa-solid fa-bag-shopping"></i></a>
                 </div>
             </nav>
         </div>

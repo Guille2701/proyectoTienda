@@ -55,6 +55,10 @@ def view_cart():
 def add_to_cart(id_producto):
     return CarritoController.add(id_producto)
 
+@app.route('/cart/remove/<int:id_producto>')
+def remove_from_cart(id_producto):
+    return CarritoController.remove_one(id_producto)
+
 @app.route('/checkout')
 def checkout():
     return CarritoController.checkout()

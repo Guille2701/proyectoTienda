@@ -8,7 +8,7 @@ class ProductoController:
     # --- LISTAR ---
     @staticmethod
     def index():
-        lista_productos = Producto.query.all()
+        lista_productos = Producto.query.filter_by(visible=True).all()
         return render_template('main.html', products=lista_productos)
 
     # --- CREAR ---
@@ -70,7 +70,7 @@ class ProductoController:
     def delete(id_producto):
         producto = Producto.query.get_or_404(id_producto)
         
-        db.session.delete(producto)
+        producto.visible = False
         db.session.commit()
         
         return redirect(url_for('index'))

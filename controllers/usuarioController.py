@@ -17,7 +17,11 @@ class UsuarioController:
             
             if usuario and check_password_hash(usuario.password, password):
                 session['username'] = usuario.username
-                session['user_id'] = usuario.id 
+                session['user_id'] = usuario.id
+                
+                session['role'] = usuario.role 
+                session['is_admin'] = usuario.is_admin
+                
                 return redirect(url_for('index'))
             else:
                 return render_template('login.html', error="Credenciales inválidas")
@@ -33,10 +37,12 @@ class UsuarioController:
             username = request.form['username']
             password = request.form['password']
             
+            # Validación
             if Usuario.query.filter_by(username=username).first():
                 return render_template('register.html', error="El usuario ya existe")
             
             hashed_pw = generate_password_hash(password)
+            
             nuevo_usuario = Usuario(username=username, password=hashed_pw)
             
             db.session.add(nuevo_usuario)

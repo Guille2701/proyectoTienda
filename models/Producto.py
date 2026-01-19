@@ -7,6 +7,7 @@ class Producto(db.Model):
     precio = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     imagen_url = db.Column(db.String(255), nullable=True)
+    visible = db.Column(db.Boolean, default=True, nullable=False)
     
     # Relationships
     detalles = db.relationship('Detalle_Pedido', backref='producto', lazy=True)

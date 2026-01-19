@@ -1,4 +1,6 @@
-from flask import render_template, request, redirect, url_for
+import os
+from flask import render_template, request, redirect, url_for, current_app
+from werkzeug.utils import secure_filename
 from models import db, Producto
 
 class ProductoController:
@@ -17,7 +19,20 @@ class ProductoController:
             precio = float(request.form['precio'])
             stock = int(request.form['stock'])
             
-            nuevo_producto = Producto(nombre=nombre, precio=precio, stock=stock)
+            archivo = request.files.get('imagen')
+            nombre_imagen = None
+            
+            if archivo and archivo.filename != '':
+                nombre_imagen = secure_filename(archivo.filename)
+                ruta_guardado = os.path.join(current_app.config['UPLOAD_FOLDER'], nombre_imagen)
+                archivo.save(ruta_guardado)
+            
+            nuevo_producto = Producto(
+                nombre=nombre, 
+                precio=precio, 
+                stock=stock, 
+                imagen_url=nombre_imagen
+            )
             
             db.session.add(nuevo_producto)
             db.session.commit()
@@ -35,6 +50,15 @@ class ProductoController:
             producto.nombre = request.form['nombre']
             producto.precio = float(request.form['precio'])
             producto.stock = int(request.form['stock'])
+            
+            archivo = request.files.get('imagen')
+            
+            if archivo and archivo.filename != '':
+                nombre_imagen = secure_filename(archivo.filename)
+                ruta_guardado = os.path.join(current_app.config['UPLOAD_FOLDER'], nombre_imagen)
+                archivo.save(ruta_guardado)
+                
+                producto.imagen_url = nombre_imagen
 
             db.session.commit()
             return redirect(url_for('index'))

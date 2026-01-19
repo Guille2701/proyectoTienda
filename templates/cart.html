@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito | TechStyle</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">Tech<span>Style</span>.</a>
+
+                <div class="nav-links">
+                    <a href="/">Inicio</a>
+                    <a href="/">Novedades</a>
+                    <a href="/">Hombre</a>
+                    <a href="/">Mujer</a>
+                    <a href="/">Accesorios</a>
+                </div>
+
+                <div class="nav-icons">
+                    <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <a href="/login" class="icon-btn"><i class="fa-regular fa-user"></i></a>
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <div class="cart-page">
+        <div class="container">
+            <h1 class="cart-title">Mi Carrito</h1>
+
+            <div class="cart-layout">
+                <!-- Cart Items List -->
+                <div class="cart-items">
+                    {% if products %}
+                    {% for product in products %}
+                    <div class="cart-item">
+                        <img src="{{ url_for('static', filename='uploads/' + product.imagen_url) if product.imagen_url else 'https://via.placeholder.com/400?text=Sin+Imagen' }}"
+                            alt="{{ product.nombre }}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">{{ product.nombre }}</h3>
+                            <p class="cart-item-variant">{{ product.variant }}</p>
+
+                            <div class="cart-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" disabled><i class="fa-solid fa-minus"></i></button>
+                                    <input type="text" value="{{ product.quantity }}" class="qty-input" readonly>
+                                    <button class="qty-btn" disabled><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">{{ "%.2f"|format(product.precio) }}€</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div style="padding: 3rem; text-align: center; color: var(--text-secondary);">
+                        <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Order Summary -->
+                <div class="cart-summary">
+                    <h2 class="summary-title">Resumen del Pedido</h2>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>{{ subtotal }}€</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío</span>
+                        <span style="color: var(--primary); font-weight: 600;">Gratis</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Impuestos (21%)</span>
+                        <span>{{ tax }}€</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>{{ total }}€</span>
+                    </div>
+
+                    <button class="checkout-btn">
+                        Proceder al Pago <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>TechStyle.</h3>
+                    <p style="color: #94a3b8; line-height: 1.6;">Innovación y estilo en cada producto. Tu tienda de
+                        confianza para lo último en tecnología y moda.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Comprar</h3>
+                    <ul>
+                        <li><a href="#">Hombres</a></li>
+                        <li><a href="#">Mujeres</a></li>
+                        <li><a href="#">Accesorios</a></li>
+                        <li><a href="#">Rebajas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Ayuda</h3>
+                    <ul>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Rastrear Pedido</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Síguenos</h3>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 TechStyle Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+
+index.html
+
+
+<article class="product-card">
+                <span class="badge-new">NUEVO</span>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                    alt="Auriculares Premium" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Audio</div>
+                    <h3 class="product-title">Sony Noise Cancelling</h3>
+                    <div class="product-footer">
+                        <span class="product-price">299€</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Product 2 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+                    alt="Smart Watch" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Wearables</div>
+                    <h3 class="product-title">Apple Watch Series 9</h3>
+                    <div class="product-footer">
+                        <span class="product-price">459€</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Product 3 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+                    alt="Zapatillas Deportivas" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Calzado</div>
+                    <h3 class="product-title">Nike Air Max Red</h3>
+                    <div class="product-footer">
+                        <span class="product-price">129€</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Product 4 -->
+            <article class="product-card">
+                <span class="badge-new">-20%</span>
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80"
+                    alt="Chaqueta Urbana" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Moda</div>
+                    <h3 class="product-title">Chaqueta Denim Vintage</h3>
+                    <div class="product-footer">
+                        <span class="product-price">89€</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </article>
+
+
+
+
+
+carrito.html
+
+
+<div class="cart-item">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80"
+                            alt="Sony Headphones" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">Sony Noise Cancelling</h3>
+                            <p class="cart-item-variant">Color: Negro Mate | Wireless</p>
+
+                            <div class="cart-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="text" value="1" class="qty-input" readonly>
+                                    <button class="qty-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button class="remove-btn">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">299€</div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="cart-item">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80"
+                            alt="Apple Watch" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">Apple Watch Series 9</h3>
+                            <p class="cart-item-variant">Color: Silver | Correa Deportiva</p>
+
+                            <div class="cart-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="text" value="1" class="qty-input" readonly>
+                                    <button class="qty-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button class="remove-btn">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">459€</div>
+                    </div>
+
+
+

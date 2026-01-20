@@ -74,7 +74,7 @@ class ProductoController:
     def delete(id_producto):
         producto = Producto.query.get_or_404(id_producto)
         
-        producto.visible = False
+        producto.visible = not producto.visible
         db.session.commit()
         
         return redirect(url_for('index'))

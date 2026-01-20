@@ -8,12 +8,10 @@ class ProductoController:
     # --- LISTAR ---
     @staticmethod
     def index():
-        # Si el usuario es admin, mostrar todos los productos (incluso ocultos)
-        # Si es usuario normal, mostrar solo los visibles
         if session.get('role') == 'admin':
             lista_productos = Producto.query.all()
         else:
-            lista_productos = Producto.query.filter_by(visible=True).all()
+            lista_productos = Producto.query.filter(Producto.visible == True, Producto.stock > 0).all()
         
         return render_template('main.html', products=lista_productos)
 

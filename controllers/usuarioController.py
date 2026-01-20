@@ -37,7 +37,6 @@ class UsuarioController:
             username = request.form['username']
             password = request.form['password']
             
-            # Validación
             if Usuario.query.filter_by(username=username).first():
                 return render_template('register.html', error="El usuario ya existe")
             

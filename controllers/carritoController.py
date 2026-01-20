@@ -16,18 +16,18 @@ class CarritoController:
         session['carrito'] = carrito
         return redirect(url_for('view_cart'))
 
-    # --- QUITAR UNO (Botón -) --- NUEVO MÉTODO
+    # --- QUITAR UNO (Botón -) ---
     @staticmethod
     def remove_one(id_producto):
         if 'carrito' in session:
             carrito = session['carrito']
-            # Si el producto está en el carrito, quitamos solo la primera coincidencia
+            
             if id_producto in carrito:
                 carrito.remove(id_producto)
                 session['carrito'] = carrito
         return redirect(url_for('view_cart'))
 
-    # --- MOSTRAR CESTA ---
+    # --- MOSTRAR CARRITO ---
     @staticmethod
     def show():
         ids_carrito = session.get('carrito', [])
@@ -48,7 +48,6 @@ class CarritoController:
                 subtotal += prod.precio * cantidad
                 productos_para_mostrar.append(prod)
             
-        # Cálculos económicos
         impuestos = subtotal * 0.21
         total_final = subtotal + impuestos
             

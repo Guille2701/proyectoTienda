@@ -1,5 +1,5 @@
 import os
-from flask import render_template, request, redirect, url_for, current_app
+from flask import render_template, request, redirect, url_for, current_app, session
 from werkzeug.utils import secure_filename
 from models import db, Producto
 
@@ -8,7 +8,13 @@ class ProductoController:
     # --- LISTAR ---
     @staticmethod
     def index():
-        lista_productos = Producto.query.filter_by(visible=True).all()
+        # Si el usuario es admin, mostrar todos los productos (incluso ocultos)
+        # Si es usuario normal, mostrar solo los visibles
+        if session.get('role') == 'admin':
+            lista_productos = Producto.query.all()
+        else:
+            lista_productos = Producto.query.filter_by(visible=True).all()
+        
         return render_template('main.html', products=lista_productos)
 
     # --- CREAR ---

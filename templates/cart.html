@@ -1,146 +1,97 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Carrito | TechStyle</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}Mi Carrito | TechStyle{% endblock %}
 
-<body>
+{% block content %}
+<div class="cart-page">
+    <div class="container">
+        <h1 class="cart-title">Mi Carrito</h1>
 
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="/" class="logo">Tech<span>Style</span>.</a>
-
-                <div class="nav-links">
-                    <a href="/">Inicio</a>
-                    <a href="/">Novedades</a>
-                    <a href="/">Hombre</a>
-                    <a href="/">Mujer</a>
-                    <a href="/">Accesorios</a>
-                </div>
-
-                <div class="nav-icons">
-                    <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <a href="/login" class="icon-btn"><i class="fa-regular fa-user"></i></a>
-                    <a href="/cart" class="icon-btn"><i class="fa-solid fa-bag-shopping"></i></a>
-                </div>
-            </nav>
+        {% if success %}
+        <div style="text-align: center; padding: 2rem; background: #dcfce7; border-radius: 8px; margin-bottom: 2rem;">
+            <h2 style="color: #166534;">¡Pedido realizado con éxito!</h2>
+            <p>Gracias por tu compra.</p>
+            <br>
+            <a href="/" class="checkout-btn"
+                style="text-decoration: none; display: inline-block; width: auto; padding: 0 2rem;">Volver a la
+                tienda</a>
         </div>
-    </header>
+        {% else %}
 
-    <div class="cart-page">
-        <div class="container">
-            <h1 class="cart-title">Mi Carrito</h1>
-            
-            {% if success %}
-                <div style="text-align: center; padding: 2rem; background: #dcfce7; border-radius: 8px; margin-bottom: 2rem;">
-                    <h2 style="color: #166534;">¡Pedido realizado con éxito!</h2>
-                    <p>Gracias por tu compra.</p>
-                    <br>
-                    <a href="/" class="checkout-btn" style="text-decoration: none; display: inline-block; width: auto; padding: 0 2rem;">Volver a la tienda</a>
-                </div>
-            {% else %}
+        <div class="cart-layout">
+            <div class="cart-items">
+                {% if products %}
+                {% for product in products %}
+                <div class="cart-item">
+                    <img src="{{ url_for('static', filename='uploads/' + product.imagen_url) if product.imagen_url else 'https://via.placeholder.com/400?text=Sin+Imagen' }}"
+                        alt="{{ product.nombre }}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">{{ product.nombre }}</h3>
+                        <p class="cart-item-variant">Precio unidad: {{ "%.2f"|format(product.precio) }}€</p>
 
-            <div class="cart-layout">
-                <div class="cart-items">
-                    {% if products %}
-                    {% for product in products %}
-                    <div class="cart-item">
-                        <img src="{{ url_for('static', filename='uploads/' + product.imagen_url) if product.imagen_url else 'https://via.placeholder.com/400?text=Sin+Imagen' }}"
-                            alt="{{ product.nombre }}" class="cart-item-img">
-                        <div class="cart-item-details">
-                            <h3 class="cart-item-title">{{ product.nombre }}</h3>
-                            <p class="cart-item-variant">Precio unidad: {{ "%.2f"|format(product.precio) }}€</p>
+                        <div class="cart-actions">
+                            <div class="quantity-control">
+                                <a href="{{ url_for('remove_from_cart', id_producto=product.id) }}" class="qty-btn"
+                                    style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-minus"></i>
+                                </a>
 
-                            <div class="cart-actions">
-                                <div class="quantity-control">
-                                    <a href="{{ url_for('remove_from_cart', id_producto=product.id) }}" class="qty-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fa-solid fa-minus"></i>
-                                    </a>
-                                    
-                                    <input type="text" value="{{ product.quantity }}" class="qty-input" readonly>
-                                    
-                                    <a href="{{ url_for('add_to_cart', id_producto=product.id) }}" class="qty-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </a>
-                                </div>
+                                <input type="text" value="{{ product.quantity }}" class="qty-input" readonly>
+
+                                <a href="{{ url_for('add_to_cart', id_producto=product.id) }}" class="qty-btn"
+                                    style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-plus"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="cart-item-price">{{ "%.2f"|format(product.precio * product.quantity) }}€</div>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <div style="padding: 3rem; text-align: center; color: var(--text-secondary);">
-                        <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                        <p>Tu carrito está vacío</p>
-                        <br>
-                        <a href="/" style="color: var(--primary); font-weight: 600;">Ir a comprar</a>
-                    </div>
-                    {% endif %}
+                    <div class="cart-item-price">{{ "%.2f"|format(product.precio * product.quantity) }}€</div>
                 </div>
-
-                {% if products %}
-                <div class="cart-summary">
-                    <h2 class="summary-title">Resumen del Pedido</h2>
-
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span>{{ "%.2f"|format(subtotal) }}€</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Envío</span>
-                        <span style="color: var(--primary); font-weight: 600;">Gratis</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Impuestos (21%)</span>
-                        <span>{{ "%.2f"|format(tax) }}€</span>
-                    </div>
-
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span>{{ "%.2f"|format(total) }}€</span>
-                    </div>
-
-                    <a href="/checkout" style="text-decoration: none;">
-                        <button class="checkout-btn">
-                            Proceder al Pago <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </a>
+                {% endfor %}
+                {% else %}
+                <div style="padding: 3rem; text-align: center; color: var(--text-secondary);">
+                    <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Tu carrito está vacío</p>
+                    <br>
+                    <a href="/" style="color: var(--primary); font-weight: 600;">Ir a comprar</a>
                 </div>
                 {% endif %}
+            </div>
 
+            {% if products %}
+            <div class="cart-summary">
+                <h2 class="summary-title">Resumen del Pedido</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>{{ "%.2f"|format(subtotal) }}€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío</span>
+                    <span style="color: var(--primary); font-weight: 600;">{% if total < 50 %}5.99€{% else %}Gratis{%
+                            endif %}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Impuestos (21%)</span>
+                    <span>{{ "%.2f"|format(tax) }}€</span>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>{% if total < 50 %}{{ "%.2f" |format(total + 5.99) }}€{% else %}{{ "%.2f" |format(total) }}€{%
+                            endif %}</span>
+                </div>
+
+                <a href="/checkout" style="text-decoration: none;">
+                    <button class="checkout-btn">
+                        Proceder al Pago <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </a>
             </div>
             {% endif %}
+
         </div>
+        {% endif %}
     </div>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>TechStyle.</h3>
-                    <p style="color: #94a3b8; line-height: 1.6;">Innovación y estilo en cada producto.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Ayuda</h3>
-                    <ul>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2026 TechStyle Store. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+</div>
+{% endblock %}

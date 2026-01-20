@@ -1,79 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión | TechStyle</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}Iniciar Sesión | TechStyle{% endblock %}
 
-<body>
+{% block nav_links %}
+<a href="{{ url_for('index') }}">Volver a la tienda</a>
+{% endblock %}
 
-    <!-- Header Navigation (Simplified) -->
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="{{ url_for('index') }}" class="logo">Tech<span>Style</span>.</a>
+{% block nav_icons %}
+<!-- Simplified navigation for login page -->
+{% endblock %}
 
-                <div class="nav-links">
-                    <a href="{{ url_for('index') }}">Volver a la tienda</a>
-                </div>
-            </nav>
+{% block content %}
+<!-- Login Section -->
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Bienvenido de nuevo</h1>
+            <p class="auth-subtitle">Ingresa tus credenciales para acceder a tu cuenta</p>
         </div>
-    </header>
 
-    <!-- Login Section -->
-    <div class="auth-wrapper">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h1 class="auth-title">Bienvenido de nuevo</h1>
-                <p class="auth-subtitle">Ingresa tus credenciales para acceder a tu cuenta</p>
+        {% if error %}
+        <div
+            style="background-color: #fee2e2; color: #991b1b; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1.5rem; text-align: center; font-size: 0.9rem;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="username" class="form-label">Nombre de Usuario</label>
+                <input type="text" id="username" name="username" class="form-input" placeholder="Nombre de Usuario"
+                    required>
             </div>
 
-            {% if error %}
-            <div
-                style="background-color: #fee2e2; color: #991b1b; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1.5rem; text-align: center; font-size: 0.9rem;">
-                {{ error }}
+            <div class="form-group">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>
             </div>
-            {% endif %}
+            <button type="submit" class="auth-btn">Iniciar Sesión</button>
+        </form>
 
-            <form action="{{ url_for('login') }}" method="POST">
-                <div class="form-group">
-                    <label for="username" class="form-label">Nombre de Usuario</label>
-                    <input type="text" id="username" name="username" class="form-input" placeholder="Nombre de Usuario"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" id="password" name="password" class="form-input" placeholder="••••••••"
-                        required>
-                </div>
-                <button type="submit" class="auth-btn">Iniciar Sesión</button>
-            </form>
-
-            <div class="auth-footer">
-                <p>¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a></p>
-            </div>
+        <div class="auth-footer">
+            <p>¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a></p>
         </div>
     </div>
-
-    <!-- Footer (Simplified) -->
-    <footer
-        style="background-color: var(--bg-body); color: var(--text-secondary); padding: 2rem 0; text-align: center; border-top: 1px solid var(--border-color);">
-        <div class="container">
-            <p>&copy; 2026 TechStyle Store. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

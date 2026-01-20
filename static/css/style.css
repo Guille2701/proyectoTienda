@@ -277,6 +277,40 @@ button {
     transform: rotate(90deg);
 }
 
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #d97706;
+    transform: scale(1.1);
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+    transform: scale(1.1);
+}
+
 /* Footer */
 .footer {
     background-color: #1e293b;
@@ -323,6 +357,19 @@ button {
     top: 1rem;
     left: 1rem;
     background-color: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.badge-hidden {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #ef4444;
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
